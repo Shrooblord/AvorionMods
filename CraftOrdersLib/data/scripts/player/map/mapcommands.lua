@@ -63,6 +63,27 @@ function MapCommands.hideOrderButtons()
     end
 end
 
+
+
+--#region Shrooblord Edit
+
+--UI
+local oldInitUI = MapCommands.initUI
+function MapCommands.initUI()
+    oldInitUI()
+
+    for name, details in pairs(moddedMapCommands) do
+        table.insert(orders, {tooltip = details.tooltip, icon = details.icon, callback = details.callback, type = name})
+        
+        local button = ordersContainer:createRoundButton(Rect(), details.icon, details.callback)
+        button.tooltip = details.tooltip
+        table.insert(orderButtons, button)
+    end
+end
+
+--#endregion Shrooblord Edit
+
+
 function MapCommands.updateButtonLocations_CraftOrdersLib()
     local selected = MapCommands.getSelectedPortraits()
 
